@@ -9,6 +9,8 @@ import { CalendarModal } from './CalendarModal';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/es';
+import { useDispatch } from 'react-redux';
+import { uiOpenModal } from '../../actions/ui';
 
 //change spanish
 moment.locale('es');
@@ -31,11 +33,13 @@ const events = [{
 
 export const CalendarScreen = () => {
 
+  const dispatch = useDispatch();
+
   const [lastView, setLastView] = useState( localStorage.getItem('lastView') || 'month' )
 
   const onDoubleClick = (e) => {
 
-    console.log(e);
+    dispatch( uiOpenModal() );
 
   }
   const onSelectEvent= (e) => {

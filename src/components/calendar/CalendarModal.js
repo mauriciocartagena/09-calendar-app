@@ -4,6 +4,8 @@ import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2';
 
 import Modal from 'react-modal'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { uiCloseModal } from '../../actions/ui';
 
 
 
@@ -25,6 +27,10 @@ const last = now.clone().add(1, 'hours' );
 
 
 export const CalendarModal = () => {
+
+
+  const { modalOpen } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
 
   const [ dateStart, setDateStart] = useState( now.toDate() );
   const [ dateEnd, setDateEnd] = useState( last.toDate() );
@@ -51,6 +57,7 @@ export const CalendarModal = () => {
 
   const closeModal = () => {
     //TODO cerrar modal
+    dispatch( uiCloseModal() );
   }
 
   const handleStartDateChange = ( e ) =>{
@@ -95,7 +102,7 @@ export const CalendarModal = () => {
 
   return (
       <Modal
-        isOpen={ true }
+        isOpen={ modalOpen }
       //   onAfterOpen={afterOpenModal}
         onRequestClose={ closeModal }
         style={customStyles}
