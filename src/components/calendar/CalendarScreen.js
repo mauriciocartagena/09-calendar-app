@@ -11,8 +11,9 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiOpenModal } from '../../actions/ui';
-import { eventSetActive } from '../../actions/events';
+import { eventClearActiveEvent, eventSetActive } from '../../actions/events';
 import { AddNewFab } from '../ui/AddNewFab';
+import { DeleteEventFab } from '../ui/DeleteEventFab';
 
 //change spanish
 moment.locale('es');
@@ -22,7 +23,7 @@ const localizer = momentLocalizer(moment);// or globalizeLocalizer
 
 export const CalendarScreen = () => {
 
-  const { events } = useSelector(state => state.calendar )
+  const { events, activeEvent } = useSelector(state => state.calendar )
 
   const dispatch = useDispatch();
 
@@ -57,6 +58,12 @@ export const CalendarScreen = () => {
     }
 
   };
+  
+  const onSelectSlot = ( e ) => {
+    // console.log(e);
+
+    dispatch( eventClearActiveEvent() );
+  }
 
   return (
         <div className="calendar-screen" >
@@ -72,12 +79,17 @@ export const CalendarScreen = () => {
             onDoubleClickEvent={ onDoubleClick }
             onSelectEvent={ onSelectEvent }
             onView={ onViewChange }
+            onSelectSlot={ onSelectSlot }
+            selectable={ true }
             view={ lastView }
             components={{
               event:CalendarEvent
             }}
           />
           <AddNewFab/>
+          {
+            ( activeEvent ) && <DeleteEventFab/>
+          }
           <CalendarModal/>
         </div>
     )
