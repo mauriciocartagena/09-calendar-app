@@ -5,7 +5,7 @@ import { types } from "../types/types";
 const initialState = {
 
     events:[{
-        id: new Date() .getTime(),
+        id: moment().toDate().getTime(),
         title: 'Mi Cumpleaños',
         start: moment().toDate(), //new Date()
         end: moment().add( 2, 'hours' ).toDate(),
