@@ -159,11 +159,6 @@ describe('Pruebas en <CalendarModal />', () => {
         expect( Swal.fire ).toHaveBeenCalledWith('Error','La fecha fin debe de ser mayor a la fecha inicio', 'error');
     });
     
-    
-
-
-    
-    
 
     
 });
